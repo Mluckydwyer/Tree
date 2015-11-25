@@ -11,72 +11,67 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
-import main.Tree;
+public class DrawWindow implements Runnable {
 
-public class DrawWindow extends JFrame implements Runnable {
-
+	private JFrame frame;
 	private Dimension size;
+	private int width;
+	private int height;
 	private int backgroundRGB;
-	private int pixels[];
-	private BufferedImage img;
-	private BufferStrategy bs;
 
-	public DrawWindow(boolean fullScreen) {
+	public DrawWindow(boolean fullScreen, String title) {
 		size = Toolkit.getDefaultToolkit().getScreenSize();
+		width = (int) size.getWidth();
+		height = (int) size.getHeight();
+		frame = new JFrame();
 
-		setVisible(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(size);
-		setResizable(false);
-		setBackground(new Color(backgroundRGB));
-		setLocation(0, 0);
+		frame.setVisible(false);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(size);
+		frame.setResizable(false);
+		frame.setBackground(new Color(backgroundRGB));
+		frame.setLocation(0, 0);
 
 		if (fullScreen) {
-			setUndecorated(true);
-			setIgnoreRepaint(true);
+			frame.setUndecorated(true);
+			frame.setIgnoreRepaint(true);
 			// vc.setFullScreenWindow();
 		}
 	}
 
 	@Override
 	public void run() {
-		notify();
-
-		add(buildMenuBar());
-		notify();
-
 		synchronized (this) {
-			img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-			pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
-			BufferStrategy bs = getBufferStrategy();
+			notify();
 
-			if (bs == null)
-				createBufferStrategy(3);
+			frame.add(buildMenuBar());
+			notify();
 
-			for (int i = 0; i < WIDTH * HEIGHT; i++)
-				pixels[i] = 0;
+			if (frame.getBufferStrategy() == null)
+				frame.createBufferStrategy(3);
 
+			BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+			BufferStrategy bs = frame.getBufferStrategy();
 			Graphics g = bs.getDrawGraphics();
+			int pixels[] = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 
-			g.drawImage(img, 0, 0, WIDTH, HEIGHT, null);
-			g.dispose();
-			bs.show();
+			for (int i = 0; i < width * height; i++)
+				pixels[i] = backgroundRGB;
 
+			// Draw Loop
 			do {
-				try {
-					g = bs.getDrawGraphics();
-					draw();
-				}
-				finally {
-					g.dispose();
-				}
+				draw(to2DArray(pixels));
+				g.drawImage(img, 0, 0, width, height, null);
+				drawOverlay(g);
+				g.dispose();
 				bs.show();
 			}
 			while (bs.contentsLost());
+
 		}
 	}
 
-	private void draw(Graphics g, int pixels[][]) {
+	private void draw(int pixels[][]) {
 		for (int x = 0; x <= pixels.length; x++) {
 			for (int y = 0; y <= pixels[x].length; y++) {
 
@@ -84,19 +79,32 @@ public class DrawWindow extends JFrame implements Runnable {
 		}
 	}
 
+	private void drawOverlay(Graphics g) {
+		g.drawString("Test", 100, 100);
+
+	}
+
 	protected JMenuBar buildMenuBar() {
 		return null;
 	}
 
 	protected void setBackgroundColor(int RGB) {
-		setBackground(new Color(RGB));
-	}
-
-	public void resize(Dimension size) {
-		setSize(size);
+		frame.setBackground(new Color(RGB));
 	}
 
 	public void resize(int width, int height) {
-		setSize(width, height);
+		frame.setSize(width, height);
+	}
+
+	private int[][] to2DArray(int[] pixels) {
+		int pixels2D[][] = new int[width][height];
+
+		for (int y = 0; y <= height; y++) {
+			for (int x = 0; x <= width; x++) {
+				pixels2D[x][y] = pixels[y * width + x];
+			}
+		}
+
+		return pixels2D;
 	}
 }
