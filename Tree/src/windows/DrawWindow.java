@@ -92,12 +92,10 @@ public class DrawWindow implements Runnable {
         Graphics g = bs.getDrawGraphics();
         render.renderAll(g);
         
-        g.dispose();
+        // g.dispose();
         g.drawImage(img, 0, 0, width, height, null);
         bs.show();
         
-        // draw(to2DArray(pixels));
-        // drawOverlay(g);
     }
     
     protected JMenuBar buildMenuBar() {
