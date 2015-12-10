@@ -20,9 +20,9 @@ public class Render extends DrawWindow {
     }
     
     public void renderAll(Graphics g) {
-        setAll(getBackgroundRGB());
-        renderRawPixles();
-        drawFrame();
+        //setAll(getBackgroundRGB());
+        // renderRawPixles();
+        // drawFrame();
         renderOverlay(g);
     }
     
@@ -45,7 +45,7 @@ public class Render extends DrawWindow {
     private void renderOverlay(Graphics g) {
         // Info
         if (Tree.drawInfo) {
-            int tl = 15; // Top Left
+            int tl = 15; // tl = Top Left
             g.setColor(Color.MAGENTA);
             g.setFont(new Font("ComicSans", Font.BOLD, tl));
             g.drawString("Version:  " + Tree.version, tl, (int) (tl * 3.5));
