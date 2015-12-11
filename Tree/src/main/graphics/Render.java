@@ -1,7 +1,6 @@
 package main.graphics;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 
 import main.Tree;
@@ -19,11 +18,10 @@ public class Render extends DrawWindow {
         pixels = new int[this.width][this.height];
     }
     
-    public void renderAll(Graphics g) {
-        //setAll(getBackgroundRGB());
-        // renderRawPixles();
-        // drawFrame();
-        renderOverlay(g);
+    public void render(Graphics g) {
+        setAll(getBackgroundRGB());
+        renderRawPixles();
+        drawFrame();
     }
     
     private void drawFrame() {
@@ -42,14 +40,13 @@ public class Render extends DrawWindow {
         }
     }
     
-    private void renderOverlay(Graphics g) {
+    public void renderOverlay(Graphics g) {
         // Info
-        if (Tree.drawInfo) {
-            int tl = 15; // tl = Top Left
+        if (Tree.isDrawInfo()) {
+            int tlc = 15; // Top Left Corner
             g.setColor(Color.MAGENTA);
-            g.setFont(new Font("ComicSans", Font.BOLD, tl));
-            g.drawString("Version:  " + Tree.version, tl, (int) (tl * 3.5));
-            g.drawString("FPS:  " + lastFPS, tl, (int) (tl * 4.5));
+            g.drawString("Version:  " + Tree.getVersion(), tlc, (int) (tlc * 3.5));
+            g.drawString("FPS:  " + getLastFPS(), tlc, (int) (tlc * 4.5));
         }
     }
     

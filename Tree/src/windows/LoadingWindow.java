@@ -40,11 +40,11 @@ public class LoadingWindow {
         frame.setLayout(new BorderLayout());
         frame.setAlwaysOnTop(true);
         
-        if (!Tree.fun) bar = new JProgressBar(0, 0, 4);
+        if (!Tree.isFun()) bar = new JProgressBar(0, 0, 4);
         else bar = new JProgressBar(0, 0, 7);
         
         bar.setStringPainted(true);
-        if (!Tree.fun) advance("Preparing to Load Window");
+        if (!Tree.isFun()) advance("Preparing to Load Window");
         else advance("Being Amazing");
         
         frame.add(bar);
