@@ -25,8 +25,7 @@ public class DrawWindow implements Runnable {
 	private int backgroundRGB = 255;
 
 	// FPS Counter
-	private int frames;
-	private int lastFPS;
+	public long lastFPS;
 	private long startRecodTime;
 
 	public DrawWindow() {
@@ -65,22 +64,15 @@ public class DrawWindow implements Runnable {
 
 		// FPS Counter
 		startRecodTime = System.currentTimeMillis();
-		// lastFPS = 0;
-		// frames = 0;
+
 
 		// Draw Loop
 		do {
 
-			if (System.currentTimeMillis() < startRecodTime + 1000) {
-				frames++;
-			} else {
-				startRecodTime = System.currentTimeMillis();
-				lastFPS = frames;
-				frames = 0;
-				System.out.println(lastFPS);
-			}
-
+			startRecodTime = System.currentTimeMillis();
 			render();
+			lastFPS = 1000 / (System.currentTimeMillis() - startRecodTime);
+			System.out.println(lastFPS);
 		} while (true);
 
 	}
@@ -96,7 +88,7 @@ public class DrawWindow implements Runnable {
 
 		render.render(g);
 		g.drawImage(img, 0, 0, width, height, null);
-		render.renderOverlay(g);
+		render.renderOverlay(g, lastFPS);
 
 		g.dispose();
 		bs.show();
@@ -149,7 +141,7 @@ public class DrawWindow implements Runnable {
 		this.pixels = pixels;
 	}
 
-	public int getLastFPS() {
+	public long getLastFPS() {
 		return lastFPS;
 	}
 	

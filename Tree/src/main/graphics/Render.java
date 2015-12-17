@@ -40,13 +40,13 @@ public class Render extends DrawWindow {
         }
     }
     
-    public void renderOverlay(Graphics g) {
+    public void renderOverlay(Graphics g, long FPS) {
         // Info
         if (Tree.isDrawInfo()) {
             int tlc = 15; // Top Left Corner
             g.setColor(Color.MAGENTA);
             g.drawString("Version:  " + Tree.getVersion(), tlc, (int) (tlc * 3.5));
-            g.drawString("FPS:  " + getLastFPS(), tlc, (int) (tlc * 4.5));
+            g.drawString("FPS:  " + FPS, tlc, (int) (tlc * 4.5));
         }
     }
     
