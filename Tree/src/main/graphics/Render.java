@@ -50,4 +50,8 @@ public class Render extends DrawWindow {
         }
     }
     
+    public void genTree(int x, int y) {
+    	
+    }
+    
 }
