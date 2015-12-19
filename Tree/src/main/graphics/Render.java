@@ -13,6 +13,8 @@ public class Render extends DrawWindow {
     private int height;
     
     public Render(int width, int height) {
+        super();
+        
         this.width = width;
         this.height = height;
         pixels = new int[this.width][this.height];
@@ -51,7 +53,7 @@ public class Render extends DrawWindow {
     }
     
     public void genTree(int x, int y) {
-    	
+        
     }
     
 }
