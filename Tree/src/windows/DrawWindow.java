@@ -2,6 +2,7 @@ package windows;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -10,7 +11,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
-import main.Tree;
+import main.TreeGen;
 import main.graphics.Render;
 
 public class DrawWindow implements Runnable {
@@ -18,9 +19,10 @@ public class DrawWindow implements Runnable {
     // ---------- Variables & Objects ----------
     
     // Objects
-    protected JFrame frame;
-    protected Render render;
+    private JFrame frame;
+    private Render render;
     private BufferedImage img;
+    public DrawWindowMouse dwm;
     
     // Variables
     private int pixels[];
@@ -36,7 +38,7 @@ public class DrawWindow implements Runnable {
     public DrawWindow() {
         
         // Create Main DrawWindow JFrame
-        frame = new JFrame(Tree.getTitle());
+        frame = new JFrame(TreeGen.getTitle());
         
         frame.setVisible(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,7 +46,7 @@ public class DrawWindow implements Runnable {
         frame.setLocation(0, 0);
         
         // Sets Settings For FullSCreen Mode
-        if (Tree.isFullScreen()) {
+        if (TreeGen.isFullScreen()) {
             frame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
             frame.setUndecorated(true);
             frame.setIgnoreRepaint(true);
@@ -62,13 +64,12 @@ public class DrawWindow implements Runnable {
         
         // Set Settings For JFrame
         frame.add(buildMenuBar());
-        
         frame.setVisible(true);
         
         height = (int) frame.getSize().getHeight();
         width = (int) frame.getSize().getWidth();
         
-        render = new Render(width, height);
+        render = new Render(this, width, height);
         
         // Set Up Buffer Strategy For Direct Pixel Access
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -76,6 +77,11 @@ public class DrawWindow implements Runnable {
         
         // FPS Counter
         startRecodTime = System.currentTimeMillis();
+        
+        // Mouse Setup
+        dwm = new DrawWindowMouse(render);
+        frame.addMouseListener(dwm);
+        frame.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(Toolkit.getDefaultToolkit().getImage("res/cursors/Leaf.png"), new Point(frame.getX(), frame.getY()), "img"));
         
         // Draw Loop
         do {
@@ -87,7 +93,7 @@ public class DrawWindow implements Runnable {
             
             // Calculates FPS
             lastFPS = 1000 / (System.currentTimeMillis() - startRecodTime);
-            if (Tree.isDebug()) System.out.println(lastFPS);
+            // if (TreeGen.isDebug()) System.out.println(lastFPS);
             
         } while (true);
         

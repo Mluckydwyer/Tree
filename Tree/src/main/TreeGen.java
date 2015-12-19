@@ -3,7 +3,7 @@ package main;
 import windows.DrawWindow;
 import windows.LoadingWindow;
 
-public class Tree {
+public class TreeGen {
     // ---------- Variables & Objects & Setting ----------
     
     // Objects
@@ -17,7 +17,7 @@ public class Tree {
     // Settings / General Info
     private static final String title = "Tree";
     private static final String version = "v0.1 Pre-Alpha";
-    private static int FPSCap = -1;
+    private static int FPSCap = -1; // If -1 Then There Is Not Cap Implemented
     private static boolean fullScreen = false;
     private static boolean loadingWindow = false;
     

@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
-import main.Tree;
+import main.TreeGen;
 
 public class LoadingWindow {
     
@@ -40,11 +40,11 @@ public class LoadingWindow {
         frame.setLayout(new BorderLayout());
         frame.setAlwaysOnTop(true);
         
-        if (!Tree.isFun()) bar = new JProgressBar(0, 0, 4);
+        if (!TreeGen.isFun()) bar = new JProgressBar(0, 0, 4);
         else bar = new JProgressBar(0, 0, 7);
         
         bar.setStringPainted(true);
-        if (!Tree.isFun()) advance("Preparing to Load Window");
+        if (!TreeGen.isFun()) advance("Preparing to Load Window");
         else advance("Being Amazing");
         
         frame.add(bar);
