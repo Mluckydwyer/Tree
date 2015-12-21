@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import main.TreeGen;
 import main.graphics.tree.Tree;
-import main.graphics.tree.TreeGenerator;
 import windows.DrawWindow;
 
 public class Render {
@@ -18,15 +17,12 @@ public class Render {
     
     // Tree Stuff
     private ArrayList<Tree> trees = new ArrayList<Tree>();
-    private Thread treeGenThread;
     
     public Render(DrawWindow dw, int width, int height) {
         this.dw = dw;
         this.width = width;
         this.height = height;
         pixels = new int[this.width][this.height];
-        treeGenThread = new TreeGenerator();
-        treeGenThread.start();
     }
     
     public void render(Graphics g) {
@@ -63,9 +59,9 @@ public class Render {
         }
     }
     
-    public void genTree(int x, int y) {
+    public void genNewTree(int x, int y) {
         trees.add(new Tree());
-        treeGenThread.newTree(trees.get(trees.size() - 1));
+        trees.get(trees.size() - 1).compute();
     }
     
 }

@@ -1,14 +1,24 @@
 package main.graphics.tree;
 
+import java.util.ArrayList;
+
 public class TreeGenerator extends Thread {
     
+	private Tree tree;
+	
+	ArrayList<Thread> limbs = new ArrayList<Thread>();
+	
+	public TreeGenerator(Tree tree) {
+		this.tree = tree;
+	}
+	
     @Override
     public void run() {
-        // TODO Auto-generated method stub
+        
         
     }
     
-    public void newTree(Tree tree) {
+    public void mainLimb() {
         
     }
     

@@ -1,5 +1,7 @@
 package windows;
 
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -17,6 +19,7 @@ public class DrawWindowMouse extends DrawWindow implements MouseListener {
         super();
         
         this.r = r;
+        if (TreeGen.isFun()) frame.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(Toolkit.getDefaultToolkit().getImage("res/cursors/Leaf.png"), new Point(frame.getX(), frame.getY()), "img"));
     }
     
     @Override
@@ -26,7 +29,7 @@ public class DrawWindowMouse extends DrawWindow implements MouseListener {
         lastClickY = e.getY();
         if (TreeGen.isDebug()) System.out.println("Mouse Clicked At  X: " + lastClickX + "  Y: " + lastClickY);
         
-        r.genTree(lastClickX, lastClickY);
+        r.genNewTree(lastClickX, lastClickY);
         if (TreeGen.isDebug()) System.out.println("Generating Tree At  X: " + lastClickX + "  Y: " + lastClickY);
         // }
     }

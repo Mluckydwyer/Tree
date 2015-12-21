@@ -2,7 +2,6 @@ package windows;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -19,7 +18,7 @@ public class DrawWindow implements Runnable {
     // ---------- Variables & Objects ----------
     
     // Objects
-    private JFrame frame;
+    protected JFrame frame;
     private Render render;
     private BufferedImage img;
     public DrawWindowMouse dwm;
@@ -81,7 +80,6 @@ public class DrawWindow implements Runnable {
         // Mouse Setup
         dwm = new DrawWindowMouse(render);
         frame.addMouseListener(dwm);
-        frame.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(Toolkit.getDefaultToolkit().getImage("res/cursors/Leaf.png"), new Point(frame.getX(), frame.getY()), "img"));
         
         // Draw Loop
         do {
