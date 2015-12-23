@@ -14,15 +14,16 @@ public class Limb extends Thread {
     private double m; // Slope Of Line
     private double b; // Y-intercept Of Line
     
-	ArrayList<Limb> subLimbs = new ArrayList<Limb>();
+    ArrayList<Limb> subLimbs = new ArrayList<Limb>();
     
-    public Limb(int x1, int y1, int x2, int y2) {
+    public Limb(int x1, int y1, int x2, int y2, boolean trunk) {
         this.x1 = x1;
-        this.x1 = y1;
-        this.x1 = x2;
-        this.x1 = y2;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
         
-        m = ((y2 - y1) / (x2 - x1));
+        if (!trunk) m = ((y2 - y1) / (x2 - x1));
+        
         b = (y1 - (m * x1));
         xMid = (x1 + x2) / 2;
         yMid = (y1 + y2) / 2;
@@ -35,9 +36,8 @@ public class Limb extends Thread {
     
     // Generate a subLimb
     private void genSubLimb() {
-    	// Do Something
+        // Do Something
     }
-    
     
     // Draw
     public void drawBranch(Graphics g) {
@@ -45,7 +45,7 @@ public class Limb extends Thread {
         if (subLimbs.isEmpty()) return;
         
         for (int i = subLimbs.size(); i > 0; i--) {
-        	drawLimb(g, subLimbs.get(i));
+            drawLimb(g, subLimbs.get(i));
         }
     }
     
@@ -53,7 +53,7 @@ public class Limb extends Thread {
         g.drawLine(limb.getXStart(), limb.getYStart(), limb.getXEnd(), limb.getYEnd());
     }
     
-    //----------Getters & Setters----------
+    // ----------Getters & Setters----------
     
     public int getYFromX(int x) {
         return (int) (m * x + b);

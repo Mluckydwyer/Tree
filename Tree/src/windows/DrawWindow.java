@@ -21,7 +21,7 @@ public class DrawWindow implements Runnable {
     protected JFrame frame;
     private Render render;
     private BufferedImage img;
-    public DrawWindowMouse dwm;
+    public static DrawWindowMouse dwm;
     
     // Variables
     private int pixels[];
@@ -113,6 +113,9 @@ public class DrawWindow implements Runnable {
         // Renders Buffer Strategy Things / Direct Pixels
         render.render(g);
         g.drawImage(img, 0, 0, width, height, null);
+        
+        // Renders Trees
+        render.renderTrees(g);
         
         // Renders Graphics Object Things
         render.renderOverlay(g, lastFPS);

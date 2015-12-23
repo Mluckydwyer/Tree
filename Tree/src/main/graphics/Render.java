@@ -54,13 +54,21 @@ public class Render {
             g.setColor(Color.MAGENTA);
             g.drawString("Version:  " + TreeGen.getVersion(), tlc, (int) (tlc * 3.5));
             g.drawString("FPS:  " + FPS, tlc, (int) (tlc * 4.5));
-            g.drawString("Mouse X: " + dw.dwm.lastClickX, tlc, (int) (tlc * 5.5));
-            g.drawString("Mouse Y: " + dw.dwm.lastClickY, tlc, (int) (tlc * 6.5));
+            g.drawString("Mouse X: " + DrawWindow.dwm.lastClickX, tlc, (int) (tlc * 5.5));
+            g.drawString("Mouse Y: " + DrawWindow.dwm.lastClickY, tlc, (int) (tlc * 6.5));
+        }
+    }
+    
+    public void renderTrees(Graphics g) {
+        g.setColor(Color.ORANGE);
+        
+        for (int i = trees.size(); i > 0; i--) {
+            trees.get(i - 1).draw(g);
         }
     }
     
     public void genNewTree(int x, int y) {
-        trees.add(new Tree());
+        trees.add(new Tree(3, 3, 3, x, y, 450));
         trees.get(trees.size() - 1).compute();
     }
     

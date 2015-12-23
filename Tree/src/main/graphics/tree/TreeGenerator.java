@@ -4,21 +4,16 @@ import java.util.ArrayList;
 
 public class TreeGenerator extends Thread {
     
-	private Tree tree;
-	
-	ArrayList<Thread> limbs = new ArrayList<Thread>();
-	
-	public TreeGenerator(Tree tree) {
-		this.tree = tree;
-	}
-	
-    @Override
-    public void run() {
-        
-        
+    private Tree tree;
+    
+    ArrayList<Thread> limbs = new ArrayList<Thread>();
+    
+    public TreeGenerator(Tree tree) {
+        this.tree = tree;
     }
     
-    public void mainLimb() {
+    @Override
+    public void run() {
         
     }
     
