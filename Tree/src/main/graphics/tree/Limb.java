@@ -11,18 +11,45 @@ public class Limb extends Thread {
     private int y2; // Ending Y Cord
     private int xMid; // Mid-Point X Cord
     private int yMid; // Mid-Point Y Cord
+    private int level; // What Level Branch It Is
     private double m; // Slope Of Line
     private double b; // Y-intercept Of Line
+    private boolean trunk; // If it is the trunk
     
-    ArrayList<Limb> subLimbs = new ArrayList<Limb>();
+    private Limb baseLimb; // The limb this is attached too
+    private TreeGenerator Tg;
     
-    public Limb(int x1, int y1, int x2, int y2, boolean trunk) {
+    private ArrayList<Limb> subLimbs = new ArrayList<Limb>();
+    
+    public Limb(Limb bassLimb, TreeGenerator Tg) {
+        setBaseLimb(bassLimb);
+        setTg(Tg);
+    }
+    
+    public Limb(Line line) {
+        this(line.getX1(), line.getY1(), line.getX2(), line.getY2(), line.getLevel(), line.isTrunk());
+    }
+    
+    public Limb(Line line, Limb bassLimb) {
+        this(line);
+        this.baseLimb = bassLimb;
+    }
+    
+    public Limb(int x1, int y1, int x2, int y2, int level, boolean trunk, Limb bassLimb) {
+        this(x1, y1, x2, y2, level, trunk);
+        this.baseLimb = bassLimb;
+    }
+    
+    public Limb(int x1, int y1, int x2, int y2, int level, boolean trunk) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+        this.setLevel(level);
+        this.setTrunk(trunk);
         
         if (!trunk) m = ((y2 - y1) / (x2 - x1));
+        else m = (y2 + y1) / 2;
         
         b = (y1 - (m * x1));
         xMid = (x1 + x2) / 2;
@@ -31,12 +58,7 @@ public class Limb extends Thread {
     
     @Override
     public void run() {
-        genSubLimb();
-    }
-    
-    // Generate a subLimb
-    private void genSubLimb() {
-        // Do Something
+        getTg().computeBranch(getBaseLimb());
     }
     
     // Draw
@@ -85,6 +107,38 @@ public class Limb extends Thread {
     
     public int getYMid() {
         return yMid;
+    }
+    
+    public Limb getBaseLimb() {
+        return baseLimb;
+    }
+    
+    public void setBaseLimb(Limb baseLimb) {
+        this.baseLimb = baseLimb;
+    }
+    
+    public boolean isTrunk() {
+        return trunk;
+    }
+    
+    public void setTrunk(boolean trunk) {
+        this.trunk = trunk;
+    }
+    
+    public int getLevel() {
+        return level;
+    }
+    
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
+    public TreeGenerator getTg() {
+        return Tg;
+    }
+    
+    public void setTg(TreeGenerator Tg) {
+        this.Tg = Tg;
     }
     
 }
