@@ -25,7 +25,6 @@ public class Tree {
 		// treeGenThread = new TreeGenerator(this);
 		limbs = new ArrayList<Limb>();
 		trunk = new Limb(new Line(x, y, x, y - trunkHeight, true, getLimbsMaxLength(0), 0));
-		;
 
 		Tree.limbsL1 = limbsL1;
 		Tree.limbsL2 = limbsL2;

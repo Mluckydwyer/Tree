@@ -15,6 +15,7 @@ public class TreeGenerator {
         Line line = new Line();
         
         line.setTrunk(false);
+        line.setLevel(base.getLevel() + 1);
         line.setX1(base.getXMid() + r.nextInt(base.getXMid()));
         line.setY1(base.getYMid() + r.nextInt(base.getYMid()));
         line.setLength(tree.getLimbsMaxLength(base.getLevel() + 1) + r.nextInt(tree.getLimbsMaxLength(base.getLevel() + 1)));

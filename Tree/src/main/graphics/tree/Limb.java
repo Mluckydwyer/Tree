@@ -36,6 +36,7 @@ public class Limb extends Thread {
 	public Limb(Line line, Limb bassLimb) {
 		this(line);
 		this.baseLimb = bassLimb;
+		setTg(bassLimb.getTg());
 	}
 
 	public Limb(int x1, int y1, int x2, int y2, int level, boolean trunk, Limb bassLimb) {
@@ -51,7 +52,7 @@ public class Limb extends Thread {
 	}
 
 	public void computeBranch() {
-		getTg().computeBranch(getBaseLimb());
+		setLine(getTg().computeBranch(getBaseLimb()));
 
 		if (level < 4)
 			addSubBranches();
@@ -59,7 +60,7 @@ public class Limb extends Thread {
 		if (subLimbs.isEmpty())
 			return;
 
-		for (int i = subLimbs.size(); i > 0; i--) {
+		for (int i = subLimbs.size() - 1; i >= 0; i--) {
 			subLimbs.get(i).setLine(getTg().computeBranch(subLimbs.get(i).getBaseLimb()));
 		}
 	}
@@ -68,8 +69,8 @@ public class Limb extends Thread {
 		subLimbs = new ArrayList<Limb>();
 
 		for (int i = 0; i < Tree.getLimbsNum(1); i++) {
-			subLimbs.add(new Limb(new Line(), this));
-			subLimbs.get(i).start();
+			subLimbs.add(new Limb(getTg().computeBranch(this), this));
+			 // subLimbs.get(i).start();
 		}
 	}
 
@@ -79,7 +80,7 @@ public class Limb extends Thread {
 		if (subLimbs.isEmpty())
 			return;
 
-		for (int i = subLimbs.size(); i > 0; i--) {
+		for (int i = subLimbs.size() - 1; i >= 0; i--) {
 			drawLimb(g, subLimbs.get(i));
 		}
 	}
