@@ -69,7 +69,7 @@ public class Render {
     
     public void genNewTree(int x, int y) {
         trees.add(new Tree(3, 3, 3, x, y, 450));
-        trees.get(trees.size() - 1).compute();
+        trees.get(trees.size() - 1).genSubBranches();
     }
     
 }
