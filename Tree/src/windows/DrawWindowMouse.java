@@ -27,7 +27,7 @@ public class DrawWindowMouse extends DrawWindow implements MouseListener {
         // if (frame.isFocusOwner()) {
         lastClickX = e.getX();
         lastClickY = e.getY();
-        if (TreeGen.isDebug()) System.out.println("Mouse Clicked At  X: " + lastClickX + "  Y: " + lastClickY);
+        if (TreeGen.isDebug()) System.out.println("\nMouse Clicked At  X: " + lastClickX + "  Y: " + lastClickY);
         
         r.genNewTree(lastClickX, lastClickY);
         if (TreeGen.isDebug()) System.out.println("Generating Tree At  X: " + lastClickX + "  Y: " + lastClickY);

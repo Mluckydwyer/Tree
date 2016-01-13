@@ -54,7 +54,7 @@ public class Tree {
 	}
 
 	public String toString() {
-		return "X: " + x + "\tY: " + y + "\t\tLimbs: " + limbs.size();
+		return "Tree - X1: " + x + "\tY1: " + y + "\tX2: " + trunk.getLine().getX2() + "\tY2: " + trunk.getLine().getY2() + "\t\tLimbs: " + limbs.size();
 	}
 
 	// ---------- Getters & Setters ----------
