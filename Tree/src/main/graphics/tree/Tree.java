@@ -61,11 +61,11 @@ public class Tree {
 
 	public static int getLimbsNum(int level) {
 		switch (level) {
-			case 1:
+			case 1 :
 				return limbsL1;
-			case 2:
+			case 2 :
 				return limbsL2;
-			case 3:
+			case 3 :
 				return limbsL3;
 		}
 
@@ -87,16 +87,16 @@ public class Tree {
 	public int getLimbsMaxLength(int level) {
 
 		switch (level) {
-			case 0:
+			case 0 :
 				return 500;
 
-			case 1:
+			case 1 :
 				return limbsL1MaxLength;
 
-			case 2:
+			case 2 :
 				return limbsL2MaxLength;
 
-			case 3:
+			case 3 :
 				return limbsL3MaxLength;
 		}
 

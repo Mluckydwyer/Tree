@@ -68,8 +68,20 @@ public class Render {
     }
     
     public void genNewTree(int x, int y) {
-        trees.add(new Tree(3, 3, 3, x, y, 450));
+        trees.add(new Tree(3, 0, 0, x, y, 450));
         trees.get(trees.size() - 1).genSubBranches();
     }
     
+    public void clearTrees(){
+    	trees.clear();
+    }
+    
+    public void terminate() {
+    	try {
+			dw.join();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    }
 }

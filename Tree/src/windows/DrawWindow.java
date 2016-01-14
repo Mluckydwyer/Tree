@@ -13,7 +13,7 @@ import javax.swing.JMenuBar;
 import main.TreeGen;
 import main.graphics.Render;
 
-public class DrawWindow implements Runnable {
+public class DrawWindow extends Thread {
 
 	// ---------- Variables & Objects ----------
 

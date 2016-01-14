@@ -56,7 +56,10 @@ public class Line {
 	public void compLength() {
 		length = Math.sqrt(Math.pow((y2 - y1), 2) + Math.pow((x2 - x1), 2));
 	}
-
+	public String toString() {
+		return "Line - X1: " + getX1() + "\tY1: " + getY1() + "\tX2: " + getX2() + "\tY2: " + getY2() + "\tLength: " + getLength() + "\tLevel: " + getLevel();
+	}
+	
 	public int getX1() {
 		return x1;
 	}
