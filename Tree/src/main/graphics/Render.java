@@ -77,11 +77,6 @@ public class Render {
     }
     
     public void terminate() {
-    	try {
-			dw.join();
-		}
-		catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+    	TreeGen.running = false;
     }
 }

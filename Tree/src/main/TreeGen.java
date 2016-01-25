@@ -75,9 +75,9 @@ public class TreeGen {
             }
             
         }
-        
-        mainWindow.start();
+
         mainWindow.setDaemon(true);
+        mainWindow.start();
     }
     
     // ---------- Getters For Program Main Settings ----------

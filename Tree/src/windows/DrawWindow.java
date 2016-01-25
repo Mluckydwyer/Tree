@@ -22,6 +22,7 @@ public class DrawWindow extends Thread {
 	private Render render;
 	private BufferedImage img;
 	public static DrawWindowMouse dwm;
+	public static DrawWindowKeyboard dwk;
 
 	// Variables
 	private int pixels[];
@@ -83,6 +84,10 @@ public class DrawWindow extends Thread {
 		// Mouse Setup
 		dwm = new DrawWindowMouse(render);
 		frame.addMouseListener(dwm);
+		
+		// Keyboard Setup
+		dwk = new DrawWindowKeyboard(render);
+		frame.addKeyListener(dwk);
 
 		// Draw Loop
 		do {
@@ -102,8 +107,16 @@ public class DrawWindow extends Thread {
 					e.printStackTrace();
 			}
 			
-		} while (true);
+		} while (TreeGen.running);
 
+		if (!TreeGen.running){
+			try {
+				join();
+			}
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	// ---------- Main Render Method ----------

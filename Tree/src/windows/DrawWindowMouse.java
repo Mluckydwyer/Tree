@@ -48,10 +48,7 @@ public class DrawWindowMouse extends DrawWindow implements MouseListener {
 		else if (e.getButton() == MouseEvent.BUTTON3) {
 			if (TreeGen.isDebug())
 				System.out.println("\nMouse Right Clicked At  X: " + lastClickX + "  Y: " + lastClickY);
-
-			r.clearTrees();
-			if (TreeGen.isDebug())
-				System.out.println("\nClearing Screen At  X: " + lastClickX + "  Y: " + lastClickY);
+			// Does Nothing
 		}
 	}
 
