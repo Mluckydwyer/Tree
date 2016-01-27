@@ -21,9 +21,10 @@ public class TreeGenerator {
 		line.setLevel(base.getLevel() + 1);
 		line.compLength();
 
+		// Set X1 & Y1
 		if (line.getLevel() == 1) {
 			line.setX1(base.getLine().getX1());
-			line.setY1((int) (base.getLine().getX1() - ((r.nextInt((int) (base.getLine().getLength() / 2)) + (base.getLine().getLength() / 2)))));
+			line.setY1((int) (base.getLine().getX1() - (base.getLine().getLength() / 2) - ((r.nextInt((int) (base.getLine().getLength() / 2))))));
 		}
 		else {
 			if (r.nextBoolean())
@@ -38,46 +39,51 @@ public class TreeGenerator {
 			line.setY1(base.computeY(line.getX1()));
 		}
 
+		// Debug
 		if (TreeGen.isDebug())
 			System.out.println(line);
 
+		// Random Length
 		line.setSlope(r.nextDouble() - r.nextDouble());
-		l = tree.getLimbsMaxLength(base.getLevel() + 1) + r.nextInt(tree.getLimbsMaxLength(base.getLevel() + 1));
-
+		l = tree.getLimbsMaxLength(base.getLevel() + 1) - r.nextInt(tree.getLimbsMaxLength(base.getLevel() + 1));
+		line.compYInt();
+		
 		if (r.nextBoolean())
 			// line.setX2(findXPos(l, line));
-			line.setX2(findXPos(r.nextInt(tree.getLimbsMaxLength(line.getLevel())), base.getLine()));
+			line.setX2(findXPos(l, base.getLine()));
 		else
 			// line.setX2(findXNeg(l, line));
-			line.setX2(findXPos(r.nextInt(tree.getLimbsMaxLength(line.getLevel())), base.getLine()));
+			line.setX2(findXNeg(l, base.getLine()));
 
 		line.setY2(line.compY(line.getX2()));
 
 		return line;
 	}
 
-	private int findXPos(double d, Line line) {
+	private int findXPos(int length, Line line) {
 		int x = line.getX1();
 		double b = line.getYInt();
 		double m = line.getSlope();
+		
 		if (TreeGen.isDebug())
 			System.out.println("Find X-Pos -  X1: " + x + " -B:  " + b + " -M: " + m);
-		return (int) QuadraticPos((1 + Math.pow(m, 2)), (-2 * x + (2 * m * (b - x))), (Math.pow(x, 2) + (Math.pow(b - x, 2))));
+		
+		return (int) QuadraticPos((1 + Math.pow(m, 2)), (-2 * x + (2 * m * (b - x))), (Math.pow(x, 2) + (Math.pow(b - x, 2))), length);
 	}
 
-	private int findXNeg(int d, Line line) {
+	private int findXNeg(int length, Line line) {
 		int x = line.getX1();
 		double b = line.getYInt();
 		double m = line.getSlope();
 
-		return (int) QuadraticNeg((1 + Math.pow(m, 2)), (-2 * x + (2 * m * (b - x))), (Math.pow(x, 2) + (Math.pow(b - x, 2))));
+		return (int) QuadraticNeg((1 + Math.pow(m, 2)), (-2 * x + (2 * m * (b - x))), (Math.pow(x, 2) + (Math.pow(b - x, 2))), length);
 	}
 
-	private double QuadraticPos(double a, double b, double c) {
-		return (-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c) / 2 * a);
+	private double QuadraticPos(double a, double b, double c, int length) {
+		return (-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c) / 2 * a) - Math.pow(length, 2);
 	}
 
-	private double QuadraticNeg(double a, double b, double c) {
-		return (-b - Math.sqrt(Math.pow(b, 2) - 4 * a * c) / 2 * a);
+	private double QuadraticNeg(double a, double b, double c, int length) {
+		return (-b - Math.sqrt(Math.pow(b, 2) - 4 * a * c) / 2 * a) - Math.pow(length, 2);
 	}
 }

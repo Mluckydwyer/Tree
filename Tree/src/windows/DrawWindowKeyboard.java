@@ -25,9 +25,15 @@ public class DrawWindowKeyboard extends DrawWindow implements KeyListener {
 			
 			r.clearTrees();
 		}
+		else if (e.getKeyChar() == 'r') {
+			if (TreeGen.isDebug())
+				System.out.println("R Key Pressed, Regenerating Tree Limbs");
+			
+			r.regenTrees();
+		}
 		else if (e.getKeyChar() == 'q') {
 			if (TreeGen.isDebug())
-				System.out.println("Q Key Pressed, Joining Threads");
+				System.out.println("Q Key Pressed, Terminating Program");
 			
 			r.terminate();
 		}

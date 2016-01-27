@@ -109,14 +109,8 @@ public class DrawWindow extends Thread {
 			
 		} while (TreeGen.running);
 
-		if (!TreeGen.running){
-			try {
-				join();
-			}
-			catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+		if (!TreeGen.running)
+			System.exit(0);
 	}
 
 	// ---------- Main Render Method ----------

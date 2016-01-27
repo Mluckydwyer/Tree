@@ -72,6 +72,11 @@ public class Render {
         trees.get(trees.size() - 1).genSubBranches();
     }
     
+    public void regenTrees() {
+    	for (int i = 0; i < trees.size(); i++)
+    		trees.get(i).genSubBranches();
+    }
+    
     public void clearTrees(){
     	trees.clear();
     }

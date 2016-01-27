@@ -36,6 +36,20 @@ public class Limb extends Thread {
 		
 		if (TreeGen.isDebug())
 			System.out.println(this);
+		
+		//if (line.getLevel() == 1)
+		//	terminate();
+	}
+	
+	private void terminate() {
+		try {
+			System.out.println("^^^^%%%%%%%%^^^");
+			this.join();
+			System.out.println("^^^^^^^^^^^^^");
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void computeBranch() {

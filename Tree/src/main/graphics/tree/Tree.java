@@ -15,15 +15,14 @@ public class Tree {
 	private int y;
 
 	private Limb trunk;
-	private ArrayList<Limb> limbs;
+	private ArrayList<Limb> limbs = new ArrayList<Limb>();
+
 
 	private final int limbsL1MaxLength = 100;
 	private final int limbsL2MaxLength = 50;
 	private final int limbsL3MaxLength = 25;
 
 	public Tree(int limbsL1, int limbsL2, int limbsL3, int x, int y, int trunkHeight) {
-		// treeGenThread = new TreeGenerator(this);
-		limbs = new ArrayList<Limb>();
 		trunk = new Limb(new Line(x, y, x, y - trunkHeight, true, getLimbsMaxLength(0), 0));
 
 		Tree.limbsL1 = limbsL1;
