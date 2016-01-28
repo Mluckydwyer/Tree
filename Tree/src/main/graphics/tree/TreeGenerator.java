@@ -24,7 +24,7 @@ public class TreeGenerator {
 		// Set X1 & Y1
 		if (line.getLevel() == 1) {
 			line.setX1(base.getLine().getX1());
-			line.setY1((int) (base.getLine().getX1() - (base.getLine().getLength() / 2) - ((r.nextInt((int) (base.getLine().getLength() / 2))))));
+			line.setY1((int) (base.getLine().getY1() - (base.getLine().getLength() / 2) - ((r.nextInt((int) (base.getLine().getLength() / 2))))));
 		}
 		else {
 			if (r.nextBoolean())
@@ -34,11 +34,14 @@ public class TreeGenerator {
 			else
 				// line.setX1(findXNeg(r.nextInt((int)
 				// (base.getLine().getLength() / 2)), base.getLine()));
-				line.setX1(findXPos(r.nextInt(tree.getLimbsMaxLength(line.getLevel())), base.getLine()));
+				line.setX1(findXNeg(r.nextInt(tree.getLimbsMaxLength(line.getLevel())), base.getLine()));
 
 			line.setY1(base.computeY(line.getX1()));
 		}
-
+		
+		System.out.println("@@@@@@@@@@@@@@Pos: " + findXPos(r.nextInt(tree.getLimbsMaxLength(line.getLevel())), base.getLine()));
+		System.out.println("@@@@@@@@@@@@@@Neg: " + findXNeg(r.nextInt(tree.getLimbsMaxLength(line.getLevel())), base.getLine()));
+		
 		// Debug
 		if (TreeGen.isDebug())
 			System.out.println(line);

@@ -16,7 +16,7 @@ public class TreeGen {
     
     // Settings / General Info
     private static final String title = "Tree";
-    private static final String version = "v0.1 Pre-Alpha";
+    private static final String version = "v0.2 Pre-Alpha";
     private static int FPSCap = -1; // If -1 Then There Is Not Cap Implemented
     private static boolean fullScreen = true;
     private static boolean loadingWindow = false;
@@ -26,7 +26,7 @@ public class TreeGen {
     private static boolean drawInfo = true;
     
     // Random / Fun / Secret Settings
-    private static boolean fun = false;
+    private static boolean fun = true;
     
     // ---------- Main Method For Whole Program ----------
     public static void main(String[] args) {

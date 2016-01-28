@@ -32,7 +32,11 @@ public class DrawWindow extends Thread {
 
 	// FPS Counter
 	public long lastFPS;
+	private int frames;
 	private long startRecodTime;
+	private long frameTime;
+	private int maxWaitTime;
+	private boolean fpsCap = false;
 
 	// ---------- Constructor ----------
 	public DrawWindow() {
@@ -59,6 +63,11 @@ public class DrawWindow extends Thread {
 					Toolkit.getDefaultToolkit().getScreenSize().width - 200,
 					Toolkit.getDefaultToolkit().getScreenSize().height - 100);
 		}
+		
+		if (TreeGen.getFPSCap() > 0) {
+			maxWaitTime = 1000 / TreeGen.getFPSCap();
+			fpsCap = true;
+		}
 	}
 
 	// ---------- Draw Window Thread Run & Main Program Run Loop ----------
@@ -78,9 +87,6 @@ public class DrawWindow extends Thread {
 		img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		setPixels(((DataBufferInt) img.getRaster().getDataBuffer()).getData());
 
-		// FPS Counter
-		startRecodTime = System.currentTimeMillis();
-
 		// Mouse Setup
 		dwm = new DrawWindowMouse(render);
 		frame.addMouseListener(dwm);
@@ -92,21 +98,30 @@ public class DrawWindow extends Thread {
 		// Draw Loop
 		do {
 			// Starts Recording Render Time
-			startRecodTime = System.currentTimeMillis();
-
+			frameTime = System.currentTimeMillis();
+			
+			if (System.currentTimeMillis() - startRecodTime >= 1000){
+				startRecodTime = System.currentTimeMillis();
+				lastFPS = frames;
+				frames = 0;
+			}
+				
+			
 			// Renders Screen
 			render();
 
 			// Calculates FPS (Try  - Catch for catching start divide by zero)
 			try {
-				lastFPS = 1000 / (System.currentTimeMillis() - startRecodTime);
-				// if (TreeGen.isDebug()) System.out.println(lastFPS);				
+				if (frameTime < maxWaitTime && fpsCap)
+					Thread.sleep(maxWaitTime - frameTime);
+				//lastFPS = 1000 / (System.currentTimeMillis() - startRecodTime);				
 			} 
-			catch (ArithmeticException e) {
+			catch (Exception e) {
 				if (TreeGen.isDebug())
 					e.printStackTrace();
 			}
 			
+			frames++;
 		} while (TreeGen.running);
 
 		if (!TreeGen.running)
